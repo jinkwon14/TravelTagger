@@ -9,9 +9,6 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -21,6 +18,9 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
     })
   ],
   providers: [],
+  declarations: [
+    AppComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

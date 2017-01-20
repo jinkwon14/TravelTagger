@@ -22,10 +22,60 @@
   <div class = "row">
     <div class="col-md-12">
       <div class="map">
-        <sebm-google-map [latitude]="lat" [longitude]="lng">
-          <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
+        <sebm-google-map
+        [latitude]="lat"
+        [longitude]="lng"
+        [zoom]="zoom"
+        [disableDefaultUI]=false
+        [zoomControl]=false
+        (mapClick)="mapClicked($event)">
+
+          <sebm-google-map-marker
+          *ngFor = "let m of markers; let i = index"
+          (markerClick)="clickedMarker(m, i)"
+          [latitude]="m.lat"
+          [longitude]="m.lng"
+          [markerDraggable] = "m.draggable"
+          (dragEnd)="markerDragEnd(m, $event)"
+          >
+          <sebm-google-map-info-window>
+            <strong>{{m.name}}</strong>
+          </sebm-google-map-info-window>
+        </sebm-google-map-marker>
         </sebm-google-map>
       </div>
     </div>
   </div>
+
+  <div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Add new marker</h3>
+      </div>
+      <div class="panel-body">
+        <form (submit)="addMarker()"action="">
+          <!-- Event Handler (submit) is added, that envokes addMarker() function in Component -->
+          <label for="">Location Name</label>
+          <input type="text" [(ngModel)]="markerName" name="markerName">
+
+          <label for="">Latitude </label>
+          <input type="text" [(ngModel)]="markerLat" name="markerLat">
+
+          <label for="">Longitude</label>
+          <input type="text" [(ngModel)]="markerLng" name="markerLng">
+
+          <label for="">Draggable Option</label>
+          <select [(ngModel)]="markerDraggable" name="markerDraggable">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+          </select>
+          <input type="submit" value="Map It!">
+        </form>
+      </div>
+    </div>
+  </div>
+
+  </div>
+
 </div><!-- /.container -->
