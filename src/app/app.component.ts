@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent {
   title: string = "My first angular2-google-map project!";
   // Zoom level
@@ -12,6 +13,12 @@ export class AppComponent {
   // Start Position
   lat: number = 29.718601;
   lng: number = -95.399044;
+  // Values
+  markerName: string;
+  markerLat: string;
+  markerLng: string;
+  markerDraggable: string;
+
   // Markers
   markers: marker[] = [
     {
@@ -38,8 +45,26 @@ export class AppComponent {
 
   }
 
+  addMarker(){
+    console.log('Adding Marker');
+    if(this.markerDraggable == 'yes'){
+      var isDraggable = true;
+    } else {
+      var isDraggable = false;
+    }
+
+    var newMarker = {
+      name: this.markerName,
+      lat: parseFloat(this.markerLat),
+      lng: parseFloat(this.markerLng),
+      draggable: isDraggable
+    }
+
+    this.markers.push(newMarker);
+  }
+
   clickedMarker(marker:marker, index:number){
-    console.log("Clicked Marker: " + marker.name+' at index '+index);
+    console.log('Clicked Marker: ' + marker.name + ' at index ' + index);
   }
 
   mapClicked($event:any){
@@ -68,10 +93,6 @@ export class AppComponent {
     var newLat = $event.coords.lat;
     var newLng = $event.coords.lng;
 
-  }
-
-  addMarker(){
-    console.log('Adding Marker');
   }
 }
 
