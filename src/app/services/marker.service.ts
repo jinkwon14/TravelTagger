@@ -13,4 +13,13 @@ export class MarkerService extends Init{
     var markers = JSON.parse(localStorage.getItem('markers'));
     return markers;
   }
+
+  addMarker(newMarker){
+    // Fetch the markers already there
+    var markers = JSON.parse(localStorage.getItem('markers'));
+    // Push to array
+    markers.push(newMarker);
+    // Set ls markers again
+    localStorage.setItem('markers', JSON.stringify(markers));
+  }
 }

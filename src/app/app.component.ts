@@ -44,6 +44,7 @@ export class AppComponent {
     }
 
     this.markers.push(newMarker);
+    this.markerService.addMarker(newMarker);
   }
 
   clickedMarker(marker:marker, index:number){
