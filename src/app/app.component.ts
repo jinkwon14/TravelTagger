@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import {MarkerService} from './services/marker.service';
+import { MarkerService } from './services/marker.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [MarkerService]
+  providers: [ MarkerService ]
 })
 
 export class AppComponent {
@@ -25,7 +25,7 @@ export class AppComponent {
   markers: marker[];
 
   constructor(private _markerService: MarkerService){
-    this.markers = this._markerService.getMarker();
+    this.markers = this._markerService.getMarkers();
   }
 
   addMarker(){
@@ -44,7 +44,18 @@ export class AppComponent {
     }
 
     this.markers.push(newMarker);
-    this.markerService.addMarker(newMarker);
+    this._markerService.addMarker(newMarker);
+  }
+
+  removeMarker(marker){
+    console.log("Removing Marker!");
+    for (var i; i < this.markers.length ; i++) {
+      if(marker.lat == this.markers[i].lat && marker.lng == this.markers[i].lng) {
+        this.markers.splice(i, 1);
+      }
+    }
+
+    this._markerService.removeMarker(marker);
   }
 
   clickedMarker(marker:marker, index:number){
@@ -77,6 +88,7 @@ export class AppComponent {
     var newLat = $event.coords.lat;
     var newLng = $event.coords.lng;
 
+    this._markerService.updateMarker(updMarker, newLat, newLng);
   }
 }
 

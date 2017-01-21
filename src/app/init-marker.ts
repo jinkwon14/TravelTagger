@@ -1,5 +1,7 @@
 export class Init{
   load(){
+    // localStorage is an API! Has to be stored as a STRING!
+    // STRING <-> JSON
     if(localStorage.getItem('markers') === null || localStorage.getItem('markers') === undefined){
       console.log('No markers found.... creating....');
 

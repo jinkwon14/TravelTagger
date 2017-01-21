@@ -1,15 +1,17 @@
-import {Injectable} from '@angular/core';
-import {Init} from '../init-marker';
+// Service need the Injectable
+import { Injectable } from '@angular/core';
+import { Init } from '../init-marker';
 
 @Injectable()
 export class MarkerService extends Init{
   constructor(){
+    // Inherets all material from Init class
     super();
     console.log('MarkerService initizlize...');
     this.load();
   }
 
-  getMarker() {
+  getMarkers() {
     var markers = JSON.parse(localStorage.getItem('markers'));
     return markers;
   }
@@ -19,6 +21,33 @@ export class MarkerService extends Init{
     var markers = JSON.parse(localStorage.getItem('markers'));
     // Push to array
     markers.push(newMarker);
+    // Set ls markers again
+    localStorage.setItem('markers', JSON.stringify(markers));
+  }
+
+  updateMarker(marker, newLat, newLng){
+    // Fetch the markers already there
+    var markers = JSON.parse(localStorage.getItem('markers'));
+
+    for(var i = 0; i < markers.length; i++){
+      if(marker.lat == markers[i].lat && marker.lng == markers[i].lng){
+        markers[i].lat = newLat;
+        markers[i].lng = newLng;
+      }
+    }
+    // Set ls markers again
+    localStorage.setItem('markers', JSON.stringify(markers));
+  }
+
+  removeMarker(marker) {
+    // Fetch the markers already there
+    var markers = JSON.parse(localStorage.getItem('markers'));
+
+    for(var i = 0; i < markers.length; i++){
+      if(marker.lat == markers[i].lat && marker.lng == markers[i].lng){
+        markers.splice(i, 1);
+      }
+    }
     // Set ls markers again
     localStorage.setItem('markers', JSON.stringify(markers));
   }
